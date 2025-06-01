@@ -1,4 +1,4 @@
-# RBAC Express.js App
+# RBAC/Auth Express.js App
 
 ## Overview
 
