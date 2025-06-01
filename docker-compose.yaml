@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: rbac-auth-express
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/rbac-app
+      - JWT_ACCESS_SECRET=youraccesssecret
+      - JWT_REFRESH_SECRET=yourrefreshsecret
+      - SENDGRID_API_KEY=your_sendgrid_api_key
+      - EMAIL_FROM=no-reply@yourdomain.com
+      - CLIENT_URL=http://localhost:3000
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongo_data:
